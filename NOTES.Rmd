@@ -1,0 +1,50 @@
+---
+title: "Notes and helper code"
+output: html_notebook
+---
+
+## Internal font database
+
+Will want an internal database that maps font names to file paths.
+
+```{r}
+if (suppressWarnings(!require("pacman", quietly = TRUE))){
+  install.packages("pacman")
+  library(pacman)
+}
+
+p_load(tidyverse, stringr, stringi, data.tree)
+
+allfonts <- dir("./inst/fonts/", pattern = "*.otf", recursive = TRUE)
+
+fontregex <- "^([^/]+)/((\\w+)-(\\w*?)?(Italic)?)\\.otf"
+
+.fontdb <- allfonts %>% str_match(fontregex) %>% 
+  tbl_df %>% 
+  set_names(c("fullpath", "fontdir", "fontfile", "fontname", "weight", "shape")) %>%
+  mutate(weight = if_else(weight == "", "Regular", weight),
+         shape = if_else(is.na(shape), "Upright", shape))
+
+fontTreeDf <- .fontdb %>% 
+  mutate(pathString = str_c("fonts", fontname, weight, shape, sep = "/"))
+
+fontTree <- as.Node(fontTreeDf)
+
+.fontList <- as.list(fontTree)
+
+
+```
+
+```{r}
+devtools::use_data(.fontdb, .fontList, internal = TRUE)
+```
+
+
+```{r}
+.fontdb$weight %>% unique %>% sort %>% dput
+```
+
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).

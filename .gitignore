@@ -96,4 +96,4 @@ Session.vim
 # auto-generated tag files
 tags
 
-
+*.nb.html
