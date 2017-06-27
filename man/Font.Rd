@@ -2,8 +2,8 @@
 % Please edit documentation in R/font.R
 \docType{class}
 \name{Font-class}
-\alias{Font}
 \alias{Font-class}
+\alias{Font}
 \title{S4 class for font objects}
 \description{
 S4 class for font objects

@@ -17,4 +17,3 @@ get_font(fontname = c("FiraSans", "FiraSansCondensed", "FiraMono",
 \description{
 Get font object
 }
-

@@ -9,4 +9,3 @@ fontpath(x, ...)
 \description{
 Get full path for font file
 }
-

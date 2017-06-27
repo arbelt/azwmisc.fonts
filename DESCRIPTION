@@ -1,6 +1,6 @@
 Package: azwmisc.fonts
 Title: Font package
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: as.person("Albert Z Wang <albert.zhao.wang@gmail.com> [aut,cre]")
 Description: Convenience package for external fonts. Currently includes the Fira
     family and Cooper Hewitt.
@@ -9,11 +9,12 @@ Depends:
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Imports:
     dplyr,
     purrr,
-    methods
+    methods,
+    rlang
 Collate:
     'font.R'
     'fontFamily.R'

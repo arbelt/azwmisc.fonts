@@ -44,3 +44,42 @@ setMethod(
     fontdir(x@UprightFont)
   }
 )
+
+
+#' Add font family to showtext
+#'
+#' Adds font family to showtext database.
+#'
+#' @importFrom rlang quo eval_tidy
+#' @importFrom purrr discard map
+#'
+#' @export
+setGeneric(
+    "showtext_add",
+    function(x, ...) standardGeneric("showtext_add")
+)
+
+setMethod(
+    "showtext_add",
+    c("FontFamily"),
+    function(x, ..., name = NULL) {
+        if (!.pkg_loaded("showtext")) {
+            stop("Showtext must be available")
+        }
+        if (is.null(name)) {
+            name <- x@UprightFont@fontname
+        }
+        call_args_ <- list(regular = x@UprightFont,
+                           bold = x@BoldFont,
+                           italic = x@ItalicFont,
+                           bolditalic = x@BoldItalicFont) %>%
+            map(fontpath) %>%
+            discard(~ nchar(.x) == 0)
+        call_ <- quo(font.add(family = !!name, !!!call_args_))
+        call_
+    }
+)
+
+.pkg_loaded <- function(x) {
+    x %in% .packages()
+}

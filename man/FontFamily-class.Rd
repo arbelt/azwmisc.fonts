@@ -7,4 +7,3 @@
 \description{
 S4 Class for font family
 }
-

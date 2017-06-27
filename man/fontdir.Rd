@@ -9,4 +9,3 @@ fontdir(x, ...)
 \description{
 Returns the full (normalized) directory containing font file.
 }
-
